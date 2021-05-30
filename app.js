@@ -7,9 +7,9 @@ request({ url: url, json: true }, (error, response) => {
   let temp = response.body.current.temperature;
   let feels = response.body.current.feelslike;
   let descrip = response.body.current.weather_descriptions[0].toLowerCase();
-  //   console.log(
-  //     ` It is currently ${temp} degrees and feels like ${feels} degrees and ${descrip}`
-  //   );
+    console.log(
+      ` It is currently ${temp} degrees and feels like ${feels} degrees and ${descrip}`
+    );
 });
 
 // Geocoding
