@@ -22,7 +22,7 @@ const request = require("postman-request");
 // request({ url: geocodingUrl, json: true }, (error, response) => {
 //   if (error) {
 //     console.log("Unable to return results");
-//   } else if (response.body.error){ 
+//   } else if (response.body.error){
 //      console.log("Can't find location")
 // } else {
 //     let long = response.body.features[0].center[0];
@@ -33,18 +33,28 @@ const request = require("postman-request");
 //   }
 // });
 
-
 const geocode = (address, callback) => {
-const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodeURIComponent(address) + "Los%20Angeles.json?access_token=pk.eyJ1IjoiZm9yZW1hbjYxMiIsImEiOiJja3A1d3l5bGwwMmVzMndxZTU3NTNyZXloIn0.NdY_Vj5xN5J09CBqfWNJzA"
+  const url =
+    "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+   address +
+    "Los%20Angeles.json?access_token=pk.eyJ1IjoiZm9yZW1hbjYxMiIsImEiOiJja3A1d3l5bGwwMmVzMndxZTU3NTNyZXloIn0.NdY_Vj5xN5J09CBqfWNJzA";
 
-request({ url: url, json: true}, (error, response) => {
-if(error){
-  callback("Unable to connect to location services")
-}
-})
+  request({ url: url, json: true }, (error, response) => {
+    if (error) {
+      callback("Unable to connect to location services", undefined);
+    } else if (response.body.features.length === 0) {
+      callback("Unable to find location. Try another search", undefined);
+    } else {
+      callback(undefined, {
+        latitude: response.body.features[0].center[0],
+        longitude: response.body.features[0].center[1],
+        location: response.body.features[0].place_name 
+      })
+    }
+  });
+};
 
-}
-
-geocode("Los Angeles" , (error, data) => {
-
-})
+geocode("Nsadfk", (error, data) => {
+  console.log("Error", error)
+  console.log("Data", data)
+});
