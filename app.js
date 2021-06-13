@@ -36,7 +36,7 @@ const request = require("postman-request");
 const geocode = (address, callback) => {
   const url =
     "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-   address +
+    address +
     "Los%20Angeles.json?access_token=pk.eyJ1IjoiZm9yZW1hbjYxMiIsImEiOiJja3A1d3l5bGwwMmVzMndxZTU3NTNyZXloIn0.NdY_Vj5xN5J09CBqfWNJzA";
 
   request({ url: url, json: true }, (error, response) => {
@@ -48,13 +48,13 @@ const geocode = (address, callback) => {
       callback(undefined, {
         latitude: response.body.features[0].center[0],
         longitude: response.body.features[0].center[1],
-        location: response.body.features[0].place_name 
-      })
+        location: response.body.features[0].place_name,
+      });
     }
   });
 };
 
 geocode("Nsadfk", (error, data) => {
-  console.log("Error", error)
-  console.log("Data", data)
+  console.log("Error", error);
+  console.log("Data", data);
 });
